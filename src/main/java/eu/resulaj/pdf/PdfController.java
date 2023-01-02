@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.servlet.http.HttpSession;
 
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.springframework.core.io.UrlResource;
@@ -21,9 +25,22 @@ import org.springframework.web.multipart.MultipartFile;
 public class PdfController {
 
 	// Create a directory to store the merged PDF file
-	static File f = new File("./src/main/resources/static/pdf");
+	static File f = new File("./pdfer");
 	static {
 		f.mkdirs();
+	}
+
+	@GetMapping("/")
+	public String index(HttpSession session) {
+		// Store an attribute in the session
+		session.setAttribute("attributeName", "attributeValue");
+
+		session.getAttribute("attributeName");
+
+		// Remove an attribute from the session
+		session.removeAttribute("attributeName");
+
+		return "redirect:/index.html";
 	}
 
 	@PostMapping("/merge")
@@ -53,8 +70,17 @@ public class PdfController {
 		// Set the Content-Disposition header to tell the browser to download the file
 		HttpHeaders headers = new HttpHeaders();
 		headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=merged.pdf");
+		// Schedule a task to delete the file after 10 seconds
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				file.delete();
+			}
+		}, 10000);
 		// Return the file in a ResponseEntity
 		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_OCTET_STREAM).body(resource);
+
 	}
 
 	public static String getCurrentTime() {
