@@ -1,0 +1,7 @@
+FROM amazoncorretto:11
+
+# Add the jar file of your application
+ADD target/pdfmerger-main.jar my-app.jar
+
+# Run the jar file
+ENTRYPOINT ["java", "-jar", "my-app.jar"]
