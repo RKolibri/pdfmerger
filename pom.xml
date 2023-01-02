@@ -8,6 +8,13 @@
 		<version>2.7.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	<distributionManagement>
+   <repository>
+     <id>github</id>
+     <name>GitHub OWNER Apache Maven Packages</name>
+     <url>https://maven.pkg.github.com/RKolibri/pdfmerger</url>
+   </repository>
+</distributionManagement>
 	<groupId>eu.resulaj</groupId>
 	<artifactId>pdfmerger</artifactId>
 	<version>main</version>
