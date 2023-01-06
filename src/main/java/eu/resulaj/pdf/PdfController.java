@@ -3,10 +3,7 @@ package eu.resulaj.pdf;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -50,6 +47,7 @@ public class PdfController {
     @PostMapping("/merge")
     public String mergePdf(@RequestParam("files") MultipartFile[] files, HttpSession session) {
         try {
+            session.setAttribute("loading", true);
             // Create a PDFMergerUtility object
             PDFMergerUtility mergePdf = new PDFMergerUtility();
             // Generate a unique file name
@@ -75,6 +73,7 @@ public class PdfController {
             session.setAttribute("file", file);
             // Set the fileAvailable attribute to true
             session.setAttribute("fileAvailable", true);
+            session.setAttribute("loading", false);
             // Set the session timeout to 30 minutes
             session.setMaxInactiveInterval(1800);
         } catch (IOException e) {
@@ -90,6 +89,7 @@ public class PdfController {
         // Return the name of the view to redirect to
         return "redirect:/index.html";
     }
+
 
     @GetMapping("/file-available")
     public ResponseEntity<Map<String, Object>> fileAvailable(HttpSession session) {
@@ -120,13 +120,19 @@ public class PdfController {
 			public void run() {
 				file.delete();
 			}
-		}, 10, TimeUnit.SECONDS);
+		}, 5, TimeUnit.SECONDS);
 
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_OCTET_STREAM).body(resource);
         //set time to delete file after 10 seconds
 
 
     }
-
+    @GetMapping("/loading")
+    public ResponseEntity<Boolean> getLoadingStatus(HttpSession session) {
+        // Cast the value of the loading attribute to a Boolean
+        Boolean loading = (Boolean) session.getAttribute("loading");
+        // Return the value of the loading variable as a JSON object
+        return ResponseEntity.ok(loading);
+    }
 
 }

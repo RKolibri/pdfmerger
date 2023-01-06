@@ -1,3 +1,4 @@
+
  fetch("/file-available")
   .then(response => response.json()) // Parse the response as JSON
   .then(data => {
@@ -13,6 +14,11 @@
    .catch(error => {
     console.log(error);
 });
+
+
+
+
+
   // Define a function to check the file availability
   function checkFileAvailability() {
     // Make an HTTP GET request to the /file-available route on your server

@@ -43,7 +43,7 @@
     <br><br>
     <div class="form-container">
         <!-- Form element -->
-        <form action="/merge" method="post" enctype="multipart/form-data">
+        <form action="/merge" id="merge-form"method="post" enctype="multipart/form-data">
             <br>
             <p class="text-center mb-3">Please select the files you want to merge</p>
 
@@ -57,13 +57,14 @@
 
             <!-- Merge and download button -->
             <div class="text-center mb-3">
-                <button type="submit" class="btn btn-red">Merge</button>
+                <button type="submit" class="btn btn-red" onclick="setLoadingStatus(true)">Merge</button>
                 <br><br>
 
-                <a href="/download" class="btn btn-red" id="download-button" style="display: none;">Download</a>
-
+                    <a  id="download-button" class="btn btn-blue" style="display: none;" href="/download">Download</a>
             </div>
 
+
+            <!-- Add a download button that is disabled by default -->
 
         </form>
 
