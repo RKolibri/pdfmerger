@@ -1,40 +1,34 @@
 # pdfmerger
-
 ## Basic Spring webapp that merges any count of pdf files into one! 
-
 [![Maven Package](https://github.com/RKolibri/pdfmerger/actions/workflows/maven.yml/badge.svg)](https://github.com/RKolibri/pdfmerger/actions/workflows/maven.yml)
-
 ##  Still in ALPHA MODE NOT USABLE!
 
-### How to use
+## How to use
+1. Choose any number of pdf files to merge
+2. Press the 'Merge' button
+3. Wait for the files to be merged (a loading bar will be displayed)
+4. Press the 'Download' button to download the merged file
 
-1. Start the Spring webapp
-2. Select any number of PDF files from your device
-3. Press the "Merge" button
-4. Wait for the process to finish (you can track the progress with the loading bar)
-5. Press the "Download" button to download the merged PDF file
-
-### How to build
-
+## How to build
 1. Clone the repository
 2. Run `mvn package` in the root directory
 
-### How to package
+## How to package
+1. Run `mvn package` in the root directory
+2. The packaged jar file will be located in the `target` directory
 
-1. Build the project with `mvn package`
-2. The jar file will be in the `target` directory
+## How to run
+1. Navigate to the directory where the jar file is located
+2. Run `java -jar pdfmerger.jar`
 
-### How to run
+## Dockerization
+To Dockerize the app, you can use the provided `Dockerfile` and `docker-compose.yml` files.
 
-1. Run the jar file with `java -jar pdfmerger-0.0.1-SNAPSHOT.jar`
-2. Go to `http://localhost:8080` in your web browser
+1. Build the Docker image by running `docker build -t pdfmerger .` in the root directory
+2. Run the app in a Docker container by running `docker-compose up`
+3. The app will be available at `http://localhost:8080`
 
-### Dockerization
+### Docker Compose
+To use the `docker-compose.yml` file, you will need to have [Docker Compose](https://docs.docker.com/compose/) installed.
 
-You can use the provided `Dockerfile` and `docker-compose.yml` files to run the application in a Docker container.
-
-1. Build the image with `docker build -t pdfmerger .`
-2. Run the container with `docker-compose up`
-3. Go to `http://localhost:8080` in your web browser
-
-Note: The `/merged` folder in the container will be mapped to a volume on the host machine, so the merged PDF files will be stored on the host and persist after the container is stopped.
+The `docker-compose.yml` file includes a volume for the `/merged` directory on the container side. This directory is used to store the merged PDF files.
