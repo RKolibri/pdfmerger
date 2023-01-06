@@ -12,11 +12,14 @@
     }
   })
    .catch(error => {
+    
     console.log(error);
+
 });
 
 
-
+// Update the text of the error message element
+document.getElementById("error-message").innerText = "Please select at least two PDF files to merge.";
 
 
   // Define a function to check the file availability

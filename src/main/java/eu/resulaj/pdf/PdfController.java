@@ -47,13 +47,9 @@ public class PdfController {
     @PostMapping("/merge")
     public String mergePdf(@RequestParam("files") MultipartFile[] files, HttpSession session) {
         try {
-            session.setAttribute("loading", true);
-            // Create a PDFMergerUtility object
             PDFMergerUtility mergePdf = new PDFMergerUtility();
-            // Generate a unique file name
             String fileName = session.getId()
                     + ".pdf";
-            // Create a directory for the user's session and set the destination file
             File sessionDir = new File("./pdfer/" + session.getId());
             sessionDir.mkdirs();
             File file = new File(sessionDir + "/" + fileName);
@@ -73,7 +69,6 @@ public class PdfController {
             session.setAttribute("file", file);
             // Set the fileAvailable attribute to true
             session.setAttribute("fileAvailable", true);
-            session.setAttribute("loading", false);
             // Set the session timeout to 30 minutes
             session.setMaxInactiveInterval(1800);
         } catch (IOException e) {
@@ -81,26 +76,21 @@ public class PdfController {
             session.setAttribute("fileAvailable", false);
             // Set the error message
             session.setAttribute("error", e.getMessage());
-
-            // Return an error message to the user
-            return "redirect:/index.html";
-            // ...
         }
         // Return the name of the view to redirect to
         return "redirect:/index.html";
     }
-
 
     @GetMapping("/file-available")
     public ResponseEntity<Map<String, Object>> fileAvailable(HttpSession session) {
         // Check if a file is available for the user to download
         File file = (File) session.getAttribute("file");
         Map<String, Object> response = new HashMap<>();
-        // Set the "available" property in the response data to indicate whether the file is available for download
+        // Set the "available" property in the response data to indicate whether the
+        // file is available for download
         response.put("available", file != null && file.exists());
         return ResponseEntity.ok(response);
     }
-
 
     @GetMapping("/download")
     public ResponseEntity<UrlResource> downloadFile(HttpSession session) throws MalformedURLException {
@@ -111,28 +101,19 @@ public class PdfController {
         // Set the Content-Disposition header to tell the browser to download the file
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getName());
-		// Create a ScheduledExecutorService
-		ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+        // Create a ScheduledExecutorService
+        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
-// Schedule a task to delete the file after 30 seconds
-		scheduler.schedule(new Runnable() {
-			@Override
-			public void run() {
-				file.delete();
-			}
-		}, 5, TimeUnit.SECONDS);
+        // Schedule a task to delete the file after 30 seconds
+        scheduler.schedule(new Runnable() {
+            @Override
+            public void run() {
+                file.delete();
+            }
+        }, 5, TimeUnit.SECONDS);
 
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_OCTET_STREAM).body(resource);
-        //set time to delete file after 10 seconds
-
+        // set time to delete file after 10 seconds
 
     }
-    @GetMapping("/loading")
-    public ResponseEntity<Boolean> getLoadingStatus(HttpSession session) {
-        // Cast the value of the loading attribute to a Boolean
-        Boolean loading = (Boolean) session.getAttribute("loading");
-        // Return the value of the loading variable as a JSON object
-        return ResponseEntity.ok(loading);
-    }
-
 }
