@@ -8,7 +8,7 @@
 }
 
 .btn-blue {
-  background-color: #0084ff;
+  background-color: #218bee;
   color: #fff;
   border: none;
   border-radius: 0.25rem;
@@ -57,4 +57,27 @@ form {
 .selected-files {
   flex: 0 0 25%; /* Take up a fixed width */
   margin-left: 1rem; /* Add some space between the form and the selected files */
+}
+#file-list {
+  margin: 20px 0;
+}
+
+#file-list .file-item {
+  background-color: #eee;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+}
+
+#file-list .file-name {
+  font-weight: bold;
+}
+
+#file-list .btn-view,
+#file-list .btn-remove {
+  padding: 5px 10px;
+  font-size: 0.8em;
+}
+
+#file-list .btn-view {
+  margin-right: 10px;
 }
