@@ -20,18 +20,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class PdfController {
+
+    private static final Logger logger = LoggerFactory.getLogger(PdfController.class);
+
     // Create a directory to store the merged PDF files for each user's session
     static File f = new File("./pdfer");
-
     static {
+
         f.mkdirs();
+
     }
 
     @GetMapping("/")
     public String index(HttpSession session) {
+
         // Check if a file is available for the user to download
         File file = (File) session.getAttribute("file");
         if (file != null && file.exists()) {
@@ -48,12 +55,12 @@ public class PdfController {
     public String mergePdf(@RequestParam("files") MultipartFile[] files, HttpSession session) {
         try {
             PDFMergerUtility mergePdf = new PDFMergerUtility();
-            String fileName = session.getId()
-                    + ".pdf";
+            String fileName = session.getId().substring(session.getId().length() - 10) + ".pdf";
             File sessionDir = new File("./pdfer/" + session.getId());
             sessionDir.mkdirs();
             File file = new File(sessionDir + "/" + fileName);
             mergePdf.setDestinationFileName(file.toString());
+
             for (MultipartFile f : files) {
                 if (f.getOriginalFilename().endsWith(".pdf")) {
                     mergePdf.addSource(f.getInputStream());
@@ -65,6 +72,8 @@ public class PdfController {
                 throw new IOException("Please select at least two PDF files to merge.");
             }
             mergePdf.mergeDocuments(null);
+            logger.info("Merging PDF files for session {}", session.getId());
+
             // Store the file in the user's session
             session.setAttribute("file", file);
             // Set the fileAvailable attribute to true
@@ -77,6 +86,7 @@ public class PdfController {
             // Set the error message
             session.setAttribute("error", e.getMessage());
         }
+
         // Return the name of the view to redirect to
         return "redirect:/index.html";
     }
@@ -96,6 +106,9 @@ public class PdfController {
     public ResponseEntity<UrlResource> downloadFile(HttpSession session) throws MalformedURLException {
         // Get the file from the user's session
         File file = (File) session.getAttribute("file");
+
+        File sessionDir = new File("./pdfer/" + session.getId());
+
         // Create a Resource object for the file
         UrlResource resource = new UrlResource(file.toURI());
         // Set the Content-Disposition header to tell the browser to download the file
@@ -104,16 +117,17 @@ public class PdfController {
         // Create a ScheduledExecutorService
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
-        // Schedule a task to delete the file after 30 seconds
+        // Schedule a task to delete the file and directory after 30 seconds
         scheduler.schedule(new Runnable() {
             @Override
             public void run() {
                 file.delete();
+                sessionDir.delete();
+
             }
-        }, 5, TimeUnit.SECONDS);
+        }, 30, TimeUnit.SECONDS);
 
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_OCTET_STREAM).body(resource);
-        // set time to delete file after 10 seconds
 
     }
 
