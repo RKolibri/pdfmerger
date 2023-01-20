@@ -32,12 +32,14 @@ jobs:
       run: mvn -B package --file pom.xml
 
     - name: Create GitHub Release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ github.token }} 
-      with: 
-        tag_name: v${{github.run_number}}
-        release_name: Release V${{github.run_number}}
+      uses: marvinpinto/action-automatic-releases@latest
+      with:
+          repo_token: "${{ github.token }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            *.jar
         
     - name: Publish to GitHub Packages Apache Maven
       run: mvn -B deploy -DskipTests --file pom.xml
