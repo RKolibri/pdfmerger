@@ -12,7 +12,7 @@
    <repository>
      <id>github</id>
      <name>GitHub RKolibri Apache Maven Packages</name>
-     <url>https://github.com/RKolibri/pdfmerger</url>
+     <url>https://maven.pkg.github.com/RKolibri/pdfmerger</url>
    </repository>
 </distributionManagement>
 	<groupId>eu.resulaj</groupId>
