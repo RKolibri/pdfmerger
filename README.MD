@@ -1,7 +1,10 @@
 # PdfMerger
 ## Basic Spring MVC that merges any count of pdf files into one! 
-[![Maven Package](https://github.com/RKolibri/pdfmerger/actions/workflows/maven.yml/badge.svg)](https://github.com/RKolibri/pdfmerger/actions/workflows/maven.yml)
+
+[![CodeQL](https://github.com/RKolibri/pdfmerger/actions/workflows/codeql.yml/badge.svg)](https://github.com/RKolibri/pdfmerger/actions/workflows/codeql.yml)
 ![Docker Pulls](https://img.shields.io/docker/pulls/klevakoz96/pdfmerger?color=blueviolet&logo=docker&logoColor=blueviolet%20&style=for-the-badge)
+[![package](https://github.com/RKolibri/pdfmerger/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/RKolibri/pdfmerger/actions/workflows/maven.yml)
+
 ##  Currently in BETA MODE and USABLE!
 
 ## How to use
