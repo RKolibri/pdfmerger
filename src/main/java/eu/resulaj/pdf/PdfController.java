@@ -59,19 +59,17 @@ public class PdfController {
             String fileName = session.getId().substring(session.getId().length() - 10) + ".pdf";
             File sessionDir = new File("./pdfer/" + session.getId());
             sessionDir.mkdirs();
-            File file = new File(sessionDir + "/" + fileName);
+            File file = new File(sessionDir  + fileName);
             mergePdf.setDestinationFileName(file.toString());
-
             for (MultipartFile f : files) {
                 if (f.getOriginalFilename() != null && f.getOriginalFilename().endsWith(".pdf")) {
                     mergePdf.addSource(f.getInputStream());
-
-                    }
-                    else {
-                        throw new IOException("Invalid file type. Only PDFs are allowed.");
-
-
+                }else if (f.getOriginalFilename() == null) {
+                    throw new IOException("Original filename not found, Please select at least two PDF files to merge.");
+                }else{
+                    throw new IOException("Invalid file type. Only PDFs are allowed.");
                 }
+
 
             }
             if (files.length < 2) {
