@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 @Controller
 public class PdfController {
+    private static final String FILE_AVAILABLE = "fileAvailable";
 
     private static final Logger logger = LoggerFactory.getLogger(PdfController.class);
 
@@ -45,10 +46,10 @@ public class PdfController {
         File file = (File) session.getAttribute("file");
         if (file != null && file.exists()) {
             // Set a flag in the session to indicate that the file is available for download
-            session.setAttribute("fileAvailable", true);
+            session.setAttribute(FILE_AVAILABLE, true);
         } else {
             // Set the flag to false
-            session.setAttribute("fileAvailable", false);
+            session.setAttribute(FILE_AVAILABLE, false);
         }
         return "redirect:/index.html";
     }
@@ -60,14 +61,14 @@ public class PdfController {
             String fileName = session.getId().substring(session.getId().length() - 10) + ".pdf";
             File sessionDir = new File("./pdfer/" + session.getId());
             sessionDir.mkdirs();
-            File file = new File(sessionDir  + fileName);
+            File file = new File(sessionDir + fileName);
             mergePdf.setDestinationFileName(file.toString());
             for (MultipartFile f : files) {
                 if (f.getOriginalFilename() != null && f.getOriginalFilename().endsWith(".pdf")) {
                     mergePdf.addSource(f.getInputStream());
-                }else if (f.getOriginalFilename() == null) {
+                } else if (f.getOriginalFilename() == null) {
                     throw new IOException("Original filename not found, Please select at least two PDF files to merge.");
-                }else{
+                } else {
                     throw new IOException("Invalid file type. Only PDFs are allowed.");
                 }
 
@@ -82,12 +83,12 @@ public class PdfController {
             // Store the file in the user's session
             session.setAttribute("file", file);
             // Set the fileAvailable attribute to true
-            session.setAttribute("fileAvailable", true);
+            session.setAttribute(FILE_AVAILABLE, true);
             // Set the session timeout to 30 minutes
             session.setMaxInactiveInterval(1800);
         } catch (IOException e) {
             // Set the fileAvailable attribute to false
-            session.setAttribute("fileAvailable", false);
+            session.setAttribute(FILE_AVAILABLE, false);
             // Set the error message
             session.setAttribute("error", e.getMessage());
         }
