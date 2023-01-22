@@ -30,6 +30,7 @@ public class PdfController {
 
     // Create a directory to store the merged PDF files for each user's session
     static File f = new File("./pdfer");
+
     static {
 
         f.mkdirs();
@@ -121,10 +122,10 @@ public class PdfController {
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
         // Schedule a task to delete the file and directory after 30 seconds
-        // Make this anonymous inner class a lambda
         scheduler.schedule(() -> {
             file.delete();
             sessionDir.delete();
+            session.invalidate();
         }, 30, TimeUnit.SECONDS);
 
 
