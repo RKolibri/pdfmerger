@@ -43,7 +43,7 @@ jobs:
 
     - name: Build Docker Image
       run: docker build -t klevakoz96/pdfmerger:latest .
-      working-directory: /home/runner/work/pdfmerger
+      working-directory: /home/runner/work/pdfmerger/pdfmerger
 
 
     - name: Log in to Docker Hub
