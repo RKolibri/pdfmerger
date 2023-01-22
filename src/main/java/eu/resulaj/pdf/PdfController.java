@@ -65,12 +65,13 @@ public class PdfController {
             for (MultipartFile f : files) {
                 if (f.getOriginalFilename() != null && f.getOriginalFilename().endsWith(".pdf")) {
                     mergePdf.addSource(f.getInputStream());
+                    if (f.getOriginalFilename().endsWith(".pdf")) {
+                        mergePdf.addSource(f.getInputStream());
+                    } else {
+                        throw new IOException("Invalid file type. Only PDFs are allowed.");
+                    }
                 }
-                if (f.getOriginalFilename().endsWith(".pdf")) {
-                    mergePdf.addSource(f.getInputStream());
-                } else {
-                    throw new IOException("Invalid file type. Only PDFs are allowed.");
-                }
+
             }
             if (files.length < 2) {
                 throw new IOException("Please select at least two PDF files to merge.");
