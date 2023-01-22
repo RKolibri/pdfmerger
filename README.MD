@@ -1,11 +1,10 @@
 # PdfMerger
 ## Basic Spring MVC that merges any count of pdf files into one! 
-
-[![CodeQL](https://github.com/RKolibri/pdfmerger/actions/workflows/codeql.yml/badge.svg)](https://github.com/RKolibri/pdfmerger/actions/workflows/codeql.yml)
-![Docker Pulls](https://img.shields.io/docker/pulls/klevakoz96/pdfmerger?color=blueviolet&logo=docker&logoColor=blueviolet%20&style=for-the-badge)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-
+![GitHub release (release name instead of tag name)](https://img.shields.io/github/v/release/Rkolibri/pdfmerger?color=blueviolet&display_name=release&include_prereleases&label=Current%20Release&logo=SpringBoot&style=for-the-badge)
+![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/Rkolibri/pdfmerger/maven.yml?branch=master&label=Project%20Build%20and%20Package&logo=SpringBoot&style=for-the-badge)
+![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/klevakoz96/pdfmerger?color=blueviolet&logo=docker&logoColor=blueviolet&style=for-the-badge)
 ## How to use   
 1. Choose any number of pdf files to merge
 2. Press the 'Merge' button
