@@ -43,7 +43,7 @@ jobs:
 
     - name: Build Docker Image
       working-directory: .
-      run: docker build --pull --rm -f "DockerFile" -t klevakoz96/pdfmerger:latest
+      run: docker build --pull --rm -f "DockerFile" -t klevakoz96/pdfmerger:latest .
 
     - name: Log in to Docker Hub
       run: echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
