@@ -121,14 +121,12 @@ public class PdfController {
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
         // Schedule a task to delete the file and directory after 30 seconds
-        scheduler.schedule(new Runnable() {
-            @Override
-            public void run() {
-                file.delete();
-                sessionDir.delete();
-
-            }
+        // Make this anonymous inner class a lambda
+        scheduler.schedule(() -> {
+            file.delete();
+            sessionDir.delete();
         }, 30, TimeUnit.SECONDS);
+
 
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_OCTET_STREAM).body(resource);
 
