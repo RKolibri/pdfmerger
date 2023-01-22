@@ -42,9 +42,8 @@ jobs:
             target/*.jar
 
     - name: Build Docker Image
-      run: docker build -t klevakoz96/pdfmerger:latest .
-      working-directory: /home/runner/work/pdfmerger/pdfmerger
-
+      working-directory: .
+      run: docker build -t ${{ github.repository }}:latest .
 
     - name: Log in to Docker Hub
       run: echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
