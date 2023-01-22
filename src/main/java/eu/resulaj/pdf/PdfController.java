@@ -62,6 +62,9 @@ public class PdfController {
             mergePdf.setDestinationFileName(file.toString());
 
             for (MultipartFile f : files) {
+                if (f.getOriginalFilename() != null && f.getOriginalFilename().endsWith(".pdf")) {
+                    mergePdf.addSource(f.getInputStream());
+                }
                 if (f.getOriginalFilename().endsWith(".pdf")) {
                     mergePdf.addSource(f.getInputStream());
                 } else {
