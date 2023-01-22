@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: package 
+name: package
 
 on:
   push:
@@ -40,3 +40,12 @@ jobs:
           title: "Development Build"
           files: |
             target/*.jar
+
+    - name: Build Docker Image
+      run: docker build -t klevakoz96/pdfmerger:latest .
+
+    - name: Log in to Docker Hub
+      run: echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+
+    - name: Push Docker Image
+      run: docker push klevakoz96/pdfmerger:latest
