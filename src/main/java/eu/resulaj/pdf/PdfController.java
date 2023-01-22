@@ -3,6 +3,7 @@ package eu.resulaj.pdf;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -123,9 +124,13 @@ public class PdfController {
 
         // Schedule a task to delete the file and directory after 30 seconds
         scheduler.schedule(() -> {
-            file.delete();
-            sessionDir.delete();
-            session.invalidate();
+            try {
+                Files.delete(file.toPath());
+                Files.delete(sessionDir.toPath());
+                session.invalidate();
+            } catch (IOException e) {
+                // handle exception
+            }
         }, 30, TimeUnit.SECONDS);
 
 
