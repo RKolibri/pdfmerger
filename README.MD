@@ -4,14 +4,20 @@
 [![CodeQL](https://github.com/RKolibri/pdfmerger/actions/workflows/codeql.yml/badge.svg)](https://github.com/RKolibri/pdfmerger/actions/workflows/codeql.yml)
 ![Docker Pulls](https://img.shields.io/docker/pulls/klevakoz96/pdfmerger?color=blueviolet&logo=docker&logoColor=blueviolet%20&style=for-the-badge)
 [![package](https://github.com/RKolibri/pdfmerger/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/RKolibri/pdfmerger/actions/workflows/maven.yml)
-
-##  Currently in BETA MODE and USABLE!
-
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=RKolibri_pdfmerger&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=RKolibri_pdfmerger)
 ## How to use
 1. Choose any number of pdf files to merge
 2. Press the 'Merge' button
 3. Wait for the files to be merged (a loading bar will be displayed)
 4. Press the 'Download' button to download the merged file
+
+
+## How to run
+1. Download the latest release from the [releases](https://github.com/RKolibri/pdfmerger/releases) page
+2. Run the jar file with the command `java -jar pdfmerger-1.0.0.jar`
+3. Wait for the server to start
+4. Access the server at `localhost:8080`
+5. enjoy!
 
 ## How to build
 1. Clone the repository
