@@ -4,7 +4,7 @@
 [![CodeQL](https://github.com/RKolibri/pdfmerger/actions/workflows/codeql.yml/badge.svg)](https://github.com/RKolibri/pdfmerger/actions/workflows/codeql.yml)
 ![Docker Pulls](https://img.shields.io/docker/pulls/klevakoz96/pdfmerger?color=blueviolet&logo=docker&logoColor=blueviolet%20&style=for-the-badge)
 [![package](https://github.com/RKolibri/pdfmerger/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/RKolibri/pdfmerger/actions/workflows/maven.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=RKolibri_pdfmerger&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=RKolibri_pdfmerger)
+
 ## How to use
 1. Choose any number of pdf files to merge
 2. Press the 'Merge' button
