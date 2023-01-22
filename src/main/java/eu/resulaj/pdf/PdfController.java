@@ -64,11 +64,12 @@ public class PdfController {
             File file = new File(sessionDir + fileName);
             mergePdf.setDestinationFileName(file.toString());
             for (MultipartFile f : files) {
-                if (f.getOriginalFilename() != null && f.getOriginalFilename().endsWith(".pdf")) {
-                    mergePdf.addSource(f.getInputStream());
-                } else if (f.getOriginalFilename() == null) {
+                if (f.getOriginalFilename() == null) {
                     throw new IOException("Original filename not found, Please select at least two PDF files to merge.");
-                } else {
+                }
+                else if (f.getOriginalFilename() != null && f.getOriginalFilename().endsWith(".pdf")) {
+                    mergePdf.addSource(f.getInputStream());
+                }  else {
                     throw new IOException("Invalid file type. Only PDFs are allowed.");
                 }
 

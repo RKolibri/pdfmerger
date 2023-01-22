@@ -14,7 +14,7 @@
 
 ## How to run
 1. Download the latest release from the [releases](https://github.com/RKolibri/pdfmerger/releases) page
-2. Run the jar file with the command `java -jar pdfmerger-1.0.0.jar`
+2. Run the jar file with the command `java -jar pdfmerger-main.jar`
 3. Wait for the server to start
 4. Access the server at `localhost:8080`
 5. enjoy!
